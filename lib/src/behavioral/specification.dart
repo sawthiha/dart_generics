@@ -8,6 +8,8 @@ abstract class Specification<T>  {
   factory Specification.base(
     bool Function(T) specification
   ) = SpecificationBase;
+
+  static Specification type<T>() => TypeSpecification<T>();
 }
 
 extension CompositedSpecification<T> on Specification<T>  {
@@ -17,6 +19,13 @@ extension CompositedSpecification<T> on Specification<T>  {
   Specification or(Specification other) => OrSpecification([this, other]);
 
   Specification not() => NegationSpecification(this);
+}
+
+class TypeSpecification<T> implements Specification  {
+  
+  @override
+  bool isSatisfiedBy(obj) => obj is T;
+
 }
 
 class SpecificationBase<T> extends Specification<T>  {

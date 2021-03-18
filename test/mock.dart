@@ -232,13 +232,6 @@ class DogCat implements Cat, Dog  {
 
 }
 
-class TypeSpecification<T> implements Specification  {
-  
-  @override
-  bool isSatisfiedBy(obj) => obj is T;
-
-}
-
 class DynamicSpecification implements Specification {
   final bool Function(dynamic obj) check;
   
