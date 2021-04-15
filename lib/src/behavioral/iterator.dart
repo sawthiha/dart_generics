@@ -7,6 +7,8 @@ abstract class FlexibleIterator<T> extends BidirectionalIterator<T> {
 
   FlexibleIterator();
 
+  int get idx;
+
   bool step({bool isReverse = false});
 
   bool get hasNext;
@@ -95,4 +97,7 @@ class FlexibleIteratorBase<T> extends FlexibleIterator<T>  {
 
   @override
   bool get isLast => _iterable.isNotEmpty && _idx == _iterable.length - 1;
+
+  @override
+  int get idx => _idx;
 }

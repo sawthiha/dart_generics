@@ -154,5 +154,18 @@ void main()  {
       expect(reverse.isEnd, false);
       expect(reverse.isBegin, true);
     });
+    test('Index Test', ()  {
+      final list = [1, 2, 3, 4, 5, 6, 7];
+      final iter = FlexibleIterator.base(list);
+      expect(iter.idx, -1);
+      var idx = -1;
+      while (iter.moveNext()) {
+        expect(iter.idx, ++idx);
+      }
+      iter.begin();
+      expect(iter.idx, -1);
+      iter.end();
+      expect(iter.idx, list.length);
+    });
   });
 }
