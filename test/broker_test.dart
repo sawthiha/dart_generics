@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:test/test.dart';
 
 import 'package:dart_generics/dart_generics.dart';
@@ -206,6 +208,31 @@ void main()  {
 
       expect(subscriber1.msg == msg1, true);
       expect(subscriber2.msg == msg2, true);
+    });
+
+    test('Publish Stream Test', () async {
+      final broker = SpecificMessageBroker.base();
+      final subscriber1 = MockSpecificMessageSubscriber(
+        specification: (msg) => msg is SpecificMessage,
+        subscribable: broker
+      );
+      final subscriber2 = MockSpecificMessageSubscriber(
+        specification: (msg) => msg is NotSpecificMessage,
+        subscribable: broker
+      );
+      final msg1 = SpecificMessage('Hello there');
+      final msg2 = NotSpecificMessage('General Kenobi');
+
+      final controller = StreamController(sync: true);
+      broker.add(controller.stream);
+      
+      controller.add(msg1);
+      expect(subscriber1.msg, msg1.msg);
+      controller.add(msg2);
+      expect(subscriber2.msg, msg2.msg);
+
+      await broker.dispose();
+      
     });
   });
 }

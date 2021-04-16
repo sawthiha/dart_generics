@@ -1,5 +1,6 @@
 library generic_toolbox;
 
+import 'dart:async';
 import 'dart:collection';
 
 part 'command.dart';

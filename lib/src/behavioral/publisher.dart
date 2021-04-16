@@ -147,6 +147,9 @@ abstract class SpecificMessageSubscribable  {
 
 abstract class SpecificMessagePublishable  {
   void publish(dynamic message);
+  void add(Stream stream);
+
+  Future<void> dispose();
 }
 
 abstract class SpecificMessageBroker
@@ -156,6 +159,7 @@ implements SpecificMessageSubscribable, SpecificMessagePublishable  {
 
 class SpecificMessageBrokerBase implements SpecificMessageBroker  {
   final Set<SpecificMessageSubscriber> _subscribers = {};
+  final List<StreamSubscription> _subscriptions = [];
 
   @override
   void publish(message) {
@@ -178,6 +182,19 @@ class SpecificMessageBrokerBase implements SpecificMessageBroker  {
     _subscribers.remove(subscriber);
   }
 
+  @override
+  void add(Stream stream) {
+    _subscriptions.add(
+      stream.listen(publish)
+    );
+  }
+
+  @override
+  Future<void> dispose() async {
+    for (var sub in _subscriptions) {
+      await sub.cancel();
+    }
+  }
 
 }
 
