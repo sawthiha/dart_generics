@@ -11,6 +11,7 @@ abstract class FlexibleIterator<T> extends BidirectionalIterator<T> {
 
   bool step({bool isReverse = false});
 
+  bool hasSuccessor({bool inReverse = false});
   bool get hasNext;
   bool get hasPrev;
 
@@ -100,4 +101,7 @@ class FlexibleIteratorBase<T> extends FlexibleIterator<T>  {
 
   @override
   int get idx => _idx;
+
+  @override
+  bool hasSuccessor({bool inReverse = false}) => inReverse ? hasPrev: hasNext;
 }

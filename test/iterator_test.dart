@@ -167,5 +167,14 @@ void main()  {
       iter.end();
       expect(iter.idx, list.length);
     });
+    test('hasSuccessor Test', ()  {
+      final list = List.generate(10, (index) => index);
+      final iter = FlexibleIterator.base(list);
+      expect(iter.hasSuccessor(inReverse: true), false);
+      expect(iter.hasSuccessor(), true);
+      iter.end();
+      expect(iter.hasSuccessor(inReverse: true), true);
+      expect(iter.hasSuccessor(), false);
+    });
   });
 }
