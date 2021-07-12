@@ -163,7 +163,8 @@ class SpecificMessageBrokerBase implements SpecificMessageBroker  {
 
   @override
   void publish(message) {
-    _subscribers.forEach(
+    // TODO: toList() is a quick fix to concurrent mod exception
+    _subscribers.toList().forEach(
       (subscriber)  {
         if(subscriber.specification.isSatisfiedBy(message))  {
           subscriber.update(message);

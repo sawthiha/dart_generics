@@ -2,6 +2,8 @@ import 'package:test/test.dart';
 
 import 'package:dart_generics/dart_generics.dart';
 
+import 'mock.dart';
+
 void main()  {
   group('FlexibleIterator Test', () {
     test('hasNext/hasPrevious Test', ()  {

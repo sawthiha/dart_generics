@@ -274,3 +274,34 @@ class MockSpecificMessageSubscriber extends SpecificMessageSubscriber  {
   }
 
 }
+
+class ListOne  {
+  final List<ListTwo> _list;
+  final FlexibleIterator<ListTwo> _iter;
+
+  ListOne(this._list, {int checkpoint = -1})
+  : _iter = FlexibleIterator.base(_list)..move(checkpoint);
+
+  FlexibleIterator<ListTwo> get iterator => _iter;
+
+}
+
+class ListTwo  {
+  final List<ListThree> _list;
+  final FlexibleIterator<ListThree> _iter;
+
+  ListTwo(this._list, {int checkpoint = -1})
+  : _iter = FlexibleIterator.base(_list)..move(checkpoint);
+  
+  FlexibleIterator<ListThree> get iterator => _iter;
+}
+
+class ListThree  {
+  final List<int> _list;
+  final FlexibleIterator<int> _iter;
+
+  ListThree(this._list, {int checkpoint = -1})
+  : _iter = FlexibleIterator.base(_list)..move(checkpoint);
+  
+  FlexibleIterator<int> get iterator => _iter;
+}
