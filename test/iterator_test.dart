@@ -2,8 +2,6 @@ import 'package:test/test.dart';
 
 import 'package:dart_generics/dart_generics.dart';
 
-import 'mock.dart';
-
 void main()  {
   group('FlexibleIterator Test', () {
     test('hasNext/hasPrevious Test', ()  {
@@ -178,5 +176,12 @@ void main()  {
       expect(iter.hasSuccessor(inReverse: true), true);
       expect(iter.hasSuccessor(), false);
     });
+  });
+  test('length test', ()  {
+    final list = <int> [1, 2, 3, 4, 5];
+    final iter = FlexibleIterator.base(list);
+    expect(iter.length, 5);
+    list.add(6);
+    expect(iter.length, 6);
   });
 }
