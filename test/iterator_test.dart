@@ -184,4 +184,26 @@ void main()  {
     list.add(6);
     expect(iter.length, 6);
   });
+  group('Listener Test',
+    ()  {
+      test('Validity',
+        ()  {
+          var idx = -1;
+          final list = <int> [1, 2, 3, 4, 5];
+          final iter = FlexibleIterator.base(list);
+          iter.addListener(
+            (i) {
+              idx = i;
+            }
+          );
+          iter.moveNext();
+          expect(idx, 0);
+          iter.moveNext();
+          expect(idx, 1);
+          iter.movePrevious();
+          expect(idx, 0);
+        }
+      );
+    },
+  );
 }
