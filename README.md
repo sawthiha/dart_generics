@@ -1,22 +1,11 @@
-A library for Dart developers.
+A library for repetitive design patterns inspired by GoF in Dart
 
-Created from templates made available by Stagehand under a BSD-style
-[license](https://github.com/dart-lang/stagehand/blob/master/LICENSE).
-
-## Usage
-
-A simple usage example:
-
-```dart
-import 'package:dart_generics/dart_generics.dart';
-
-main() {
-  var awesome = new Awesome();
-}
-```
-
-## Features and bugs
-
-Please file feature requests and bugs at the [issue tracker][tracker].
-
-[tracker]: http://example.com/issues/replaceme
+## Features
+### Behavioral
+- Command
+- Iterator
+- Mememto
+- Observer
+- PubSub
+- Chain of Responsibility
+- Specification

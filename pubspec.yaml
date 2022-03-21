@@ -1,5 +1,5 @@
 name: dart_generics
-description: A starting point for Dart libraries or applications.
+description: A library for repetitive design patterns inspired by GoF in Dart
 version: 0.0.1+8
 # homepage: https://www.example.com
 publish_to: none
