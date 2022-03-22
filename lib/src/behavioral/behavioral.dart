@@ -1,4 +1,5 @@
-library generic_toolbox;
+// Behavioral Design Helpers
+library behavioral;
 
 import 'dart:async';
 import 'dart:collection';

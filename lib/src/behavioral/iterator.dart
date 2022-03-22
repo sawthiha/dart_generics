@@ -1,4 +1,4 @@
-part of 'behavioral.dart';
+part of behavioral;
 
 bool checkIfValidIndex(int index, dynamic iterable)
   => index >= 0 && index < iterable.length;

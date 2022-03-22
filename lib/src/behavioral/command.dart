@@ -1,4 +1,4 @@
-part of 'behavioral.dart';
+part of behavioral;
 
 abstract class Command  {
   void execute();
