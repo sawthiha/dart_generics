@@ -37,7 +37,7 @@ class CommandManager  {
 
   /// Undo the most recent done/redone command
   void undo()  {
-    if(_undoables.isNotEmpty)  {
+    if(isUndoable)  {
       var command = _undoables.removeLast();
       command.rollback();
       _redoables.addLast(command);
@@ -46,7 +46,7 @@ class CommandManager  {
 
   /// Redo the most recent undone command
   void redo()  {
-    if(_redoables.isNotEmpty)  {
+    if(isRedoable)  {
       var command = _redoables.removeLast();
       command.execute();
       _undoables.addLast(command);
