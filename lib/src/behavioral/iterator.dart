@@ -1,42 +1,69 @@
 part of behavioral;
 
+/// Check if an index is valid for the given iterable
 bool checkIfValidIndex(int index, dynamic iterable)
   => index >= 0 && index < iterable.length;
 
+/// FlexibleIterationCallback Alias
 typedef FlexibleIterationCallback = void Function(int idx);
 
+/// [FlexibleIterator] interface
+/// 
+/// extends [BidirectionalIterator]
 abstract class FlexibleIterator<T> extends BidirectionalIterator<T> {
 
   FlexibleIterator();
 
+  /// Index getter
   int get idx;
+  /// Length getter
   int get length;
 
+  /// Take a step
+  /// 
+  /// Backward if [isReverse] is true
   bool step({bool isReverse = false});
 
+  /// Check if a step can be take
+  /// 
+  /// Backward if [isReverse] is true
   bool hasSuccessor({bool inReverse = false});
+  /// Check if has successor next
   bool get hasNext;
+  /// Check if has successor previous
   bool get hasPrev;
 
+  /// Move the cursor to the beginning
   void begin();
+  /// Move the cursor to the end
   void end();
 
+  /// Check if cursor is at the beginning
   bool get isBegin;
+  /// Check if cursor is at the end
   bool get isEnd;
 
+  /// Check if cursor is at the first valid element
   bool get isFirst;
+  /// Check if cursor is at the last valid element
   bool get isLast;
 
+  /// Move to cursor to specific index
   void move(int to);
 
+  /// Add Listener to the cursor changes
   void addListener(FlexibleIterationCallback callback);
 
+  /// Factory
   factory FlexibleIterator.base(Iterable<T> iterable, {bool isReverse}) = FlexibleIteratorBase;
 
 }
 
+/// Concrete FlexibleIterator
 class FlexibleIteratorBase<T> extends FlexibleIterator<T>  {
+  /// Iterable
   final Iterable<T> _iterable;
+  /// Cursor
   int _idx;
 
   FlexibleIteratorBase(Iterable<T> iterable, {bool isReverse = false})
@@ -50,7 +77,7 @@ class FlexibleIteratorBase<T> extends FlexibleIterator<T>  {
   bool moveNext() {
     if(hasNext)  {
       _idx++;
-      _notifyListener();
+      _notifyListeners();
       return hasNext;
     }
     return false;
@@ -60,7 +87,7 @@ class FlexibleIteratorBase<T> extends FlexibleIterator<T>  {
   bool movePrevious()  {
     if(hasPrev)  {
       _idx--;
-      _notifyListener();
+      _notifyListeners();
       return hasPrev;
     }
     return false;
@@ -75,20 +102,20 @@ class FlexibleIteratorBase<T> extends FlexibleIterator<T>  {
   @override
   void begin() {
     _idx = -1;
-    _notifyListener();
+    _notifyListeners();
   }
 
   @override
   void end() {
     _idx = _iterable.isNotEmpty ? _iterable.length: -1;
-    _notifyListener();
+    _notifyListeners();
   }
 
   @override
   void move(int to) {
     if(checkIfValidIndex(to, _iterable))  {
       _idx = to;
-      _notifyListener();
+      _notifyListeners();
     }
   }
 
@@ -118,6 +145,7 @@ class FlexibleIteratorBase<T> extends FlexibleIterator<T>  {
   @override
   int get length => _iterable.length;
 
+  /// Listeners
   List<FlexibleIterationCallback> callbacks = [];
 
   @override
@@ -125,7 +153,8 @@ class FlexibleIteratorBase<T> extends FlexibleIterator<T>  {
     callbacks.add(callback);
   }
 
-  void _notifyListener()  {
+  /// Notify Listeners
+  void _notifyListeners()  {
     callbacks.forEach(
       (callback) {
         callback(_idx);
