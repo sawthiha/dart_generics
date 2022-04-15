@@ -113,7 +113,7 @@ class FlexibleIteratorBase<T> extends FlexibleIterator<T>  {
 
   @override
   void move(int to) {
-    if(checkIfValidIndex(to, _iterable))  {
+    if(to >= -1 && to <= _iterable.length)  {
       _idx = to;
       _notifyListeners();
     }
