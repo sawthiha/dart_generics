@@ -1,9 +1,5 @@
 part of behavioral;
 
-/// Check if an index is valid for the given iterable
-bool checkIfValidIndex(int index, dynamic iterable)
-  => index >= 0 && index < iterable.length;
-
 /// FlexibleIterationCallback Alias
 typedef FlexibleIterationCallback = void Function(int idx);
 
